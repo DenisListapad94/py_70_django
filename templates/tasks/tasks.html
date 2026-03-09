@@ -2,7 +2,30 @@
 
 {% block content %}
 
-<table class="table table-dark table-success table-striped-column">
+<style>
+.table-emerald thead {
+    background-color: #10b981;
+    color: white;
+}
+
+.table-emerald tbody tr:hover {
+    background-color: #d1fae5;
+}
+
+.table-emerald td:hover,
+.table-emerald th:hover {
+    background-color: #6ee7b7;
+}
+
+.table-emerald td,
+.table-emerald th {
+    transition: background-color 0.2s;
+}
+</style>
+
+<div class="container mt-4" style="max-width: 1000px;">
+
+<table class="table table-bordered table-striped text-center table-emerald">
   <thead>
     <tr>
       <th scope="col">name</th>
@@ -10,16 +33,19 @@
       <th scope="col">country</th>
     </tr>
   </thead>
+
   <tbody>
-  {% for city in cities%}
+  {% for city in cities %}
     <tr>
-      <td>{{ city.name }} </td>
+      <td>{{ city.name }}</td>
       <td>{{ city.population }}</td>
       <td>{{ city.country }}</td>
     </tr>
-{% endfor %}
+  {% endfor %}
   </tbody>
+
 </table>
 
+</div>
 
 {% endblock %}
