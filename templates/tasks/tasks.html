@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<table class="table table-dark table-success table-striped-column">
+  <thead>
+    <tr>
+      <th scope="col">name</th>
+      <th scope="col">population</th>
+      <th scope="col">country</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for city in cities%}
+    <tr>
+      <td>{{ city.name }} </td>
+      <td>{{ city.population }}</td>
+      <td>{{ city.country }}</td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock %}
