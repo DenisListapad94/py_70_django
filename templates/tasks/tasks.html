@@ -29,17 +29,23 @@
   <thead>
     <tr>
       <th scope="col">name</th>
-      <th scope="col">population</th>
-      <th scope="col">country</th>
+      <th scope="col">description</th>
+      <th scope="col">status</th>
+      <th scope="col">priority</th>
     </tr>
   </thead>
 
   <tbody>
-  {% for city in cities %}
+  {% for task in tasks %}
     <tr>
-      <td>{{ city.name }}</td>
-      <td>{{ city.population }}</td>
-      <td>{{ city.country }}</td>
+      <td>{{ task.name }}</td>
+      {% if task.description is not None %}
+         <td>{{ task.description }}</td>
+      {% else  %}
+        <td></td>
+      {% endif  %}
+      <td>{{ task.status }}</td>
+      <td>{{ task.priority }}</td>
     </tr>
   {% endfor %}
   </tbody>

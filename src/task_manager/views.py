@@ -1,18 +1,13 @@
 from django.shortcuts import render
 
 from django.http import HttpResponse
+from task_manager.models import Tasks
 
 # MTV
-def index(request):
-    cities = [
-        {"name": "Mumbai", "population": 19000000, "country": "India"},
-        {"name": "Calcutta", "population": 15000000, "country": "India"},
-        {"name": "New York", "population": 20000000, "country": "USA"},
-        {"name": "Chicago", "population": 7000000, "country": "USA"},
-        {"name": "Tokyo", "population": 33000000, "country": "Japan"},
-    ]
+def tasks(request):
+
     context = {
-        "cities":cities
+        "tasks": Tasks.objects.all()
     }
     return render(request,"tasks.html",context=context)
 
