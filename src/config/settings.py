@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     #applications
-    'task_manager'
+    'task_manager',
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -91,6 +92,7 @@ DATABASES = {
     },
 }
 
+AUTH_USER_MODEL = "account.User"
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
