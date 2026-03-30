@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
-
 from account.managers import UserManager
 from config.models import BaseModel
 
@@ -24,3 +23,21 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
         db_table = "users"
         verbose_name = "User"
         verbose_name_plural = "Users"
+
+
+class Owners(User):
+    class Meta:
+        db_table = "owners"
+        verbose_name = "owner"
+        verbose_name_plural = "owners"
+
+
+
+class Employees(User):
+     work_time_hours = models.PositiveSmallIntegerField()
+     worktime_timezone = models.SmallIntegerField()
+
+     class Meta:
+         db_table = "employees"
+         verbose_name = "Employee"
+         verbose_name_plural = "Employees"

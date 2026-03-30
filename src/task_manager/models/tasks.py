@@ -45,6 +45,7 @@ class Tasks(BaseModel):
         related_name="tasks",
         on_delete=models.CASCADE,
         null = True,
+        blank = True,
     )
 
     assignee = models.ForeignKey(
@@ -55,11 +56,20 @@ class Tasks(BaseModel):
         blank=True,
     )
 
+
     class Meta:
-        ordering = ["-priority","-created_at"]
+        ordering = ["-created_at"]
         db_table = "tasks"
         verbose_name = "Задача"
         verbose_name_plural = "Задачи"
 
     def __str__(self):
         return self.name
+
+
+
+class EducationTasks(Tasks):
+    class Meta:
+        proxy = True
+
+
