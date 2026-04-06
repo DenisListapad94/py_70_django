@@ -41,7 +41,7 @@ class TaskAdmin(admin.ModelAdmin):
     # ]
     # readonly_fields = ("status",)
     exclude = ("is_reopened",)
-    list_display = ("display_name","status","priority","priority_status")
+    list_display = ("id","display_name","status","priority","priority_status","assignee")
     list_display_links = ("display_name","status")
     list_editable = ("priority",)
     list_filter = ("status","priority")

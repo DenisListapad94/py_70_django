@@ -3,10 +3,13 @@ from django.http import HttpResponse
 from task_manager.models import Tasks
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.db import transaction
 from django.urls import reverse
 from task_manager.forms import TaskForm
 from django.core.signals import request_finished
 from django.dispatch import receiver
+from account.models import User
+from django.db.models import F
 
 
 
@@ -28,6 +31,16 @@ def about(request):
 def index_2(request,task):
     return HttpResponse(f"<h1>Index 2. {task}</h1>")
 
+@transaction.atomic
+def user_tasks(request,pk):
+    user = User.objects.get(pk=pk)
+    task = user.tasks.get(id=3)
+
+    task.priority = F("priority") + 1
+    import pdb;pdb.set_trace()
+    if task.priority > 5:
+        raise ValueError
+    return HttpResponse(f"<h1>User {user.email}</h1>")
 
 
 
