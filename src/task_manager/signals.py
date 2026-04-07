@@ -8,4 +8,4 @@ from account.models import User
 def my_test_signal(sender,instance,created, **kwargs):
     user = User.objects.get(id=1)
     instance.assignee = user
-    instance.save()
+    # instance.save()

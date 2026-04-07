@@ -140,6 +140,24 @@ STATICFILES_DIRS = [
     BASE_DIR.parent / "static/images",
 ]
 
+STATIC_ROOT = BASE_DIR.parent / "static"
+
+# media
+
+MEDIA_URL =  "media/"
+MEDIA_ROOT = "media_files"
+
+# storages
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 

@@ -16,6 +16,12 @@ class Attachments(BaseModel):
         on_delete=models.CASCADE,
         related_name="attachments"
     )
+    photo = models.ImageField(
+        upload_to="attachments",
+        null=True,
+        blank=True,
+        verbose_name="Фото"
+    )
 
     class Meta:
         ordering = ["name"]

@@ -91,11 +91,25 @@ class TaskAdmin(admin.ModelAdmin):
             )
 
 
+class AttachmentsAdmin(admin.ModelAdmin):
+    list_display = ("name","task","display_photo","photo")
+    @admin.display(description="Отображение картинки")
+    def display_photo(self, instance):
+        if instance.photo:
+            return mark_safe(f'<img src={ instance.photo.url } width=50/>')
+
+
+
 admin.site.register(Tasks,TaskAdmin)
 admin.site.register(Tags)
 admin.site.register(Projects)
 admin.site.register(ProjectDetails)
 admin.site.register(Comments)
-admin.site.register(Attachments)
+admin.site.register(Attachments,AttachmentsAdmin)
+
+
+
+
+
 
 # Register your models here.

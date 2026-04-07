@@ -1,11 +1,11 @@
-
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from task_manager.models import Tasks
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.db import transaction
 from django.urls import reverse
-from task_manager.forms import TaskForm
+from task_manager.forms import TaskForm, AttachmentsForm
 from django.core.signals import request_finished
 from django.dispatch import receiver
 from account.models import User
@@ -15,13 +15,17 @@ from django.db.models import F
 
 
 # MTV
-@receiver(request_finished)
-def tasks(sender, **kwargs):
-    print("Request finished!")
+@transaction.atomic
+def tasks(request):
+    tasks = Tasks.objects.task_optimization()
+    paginator = Paginator(tasks, 50)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        "tasks": Tasks.objects.select_related("assignee").prefetch_related("tags","comments").all()
+        "tasks": page_obj,
+        "page_obj": page_obj,
     }
-    return render(sender,"tasks.html",context=context)
+    return render(request,"tasks.html",context=context)
 
 
 def about(request):
@@ -55,7 +59,6 @@ def create_task_form(request):
 
         form = TaskForm(request.POST)
 
-        # check whether it's valid:
         if form.is_valid():
 
             # Tasks.objects.create(
@@ -66,9 +69,25 @@ def create_task_form(request):
             #     name=request.cleaned_data.get("name"),
             #     priority=request.cleaned_data.get("priority")
             # )
-            # form.save()
+            form.save()
             return HttpResponseRedirect(reverse("tasks"))
     else:
         form = TaskForm()
 
     return render(request, "task_form.html", {"form": form})
+
+
+def create_attachment(request):
+
+    if request.method == "POST":
+
+        form = AttachmentsForm(request.POST,request.FILES)
+
+        if form.is_valid():
+
+            form.save()
+            return HttpResponseRedirect(reverse("tasks"))
+    else:
+        form = AttachmentsForm()
+
+    return render(request, "task_attachment.html", {"form": form})
