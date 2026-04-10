@@ -2,6 +2,9 @@
 
 {% block content %}
 
+    {% load cache %}
+
+
 <style>
 .table-emerald thead {
     background-color: #10b981;
@@ -44,7 +47,10 @@
 }
 </style>
 
+
+
 <div class="container mt-4" style="max-width: 1000px;">
+{#{% cache 30 sidebar %}#}
 
 <table class="table table-bordered table-striped text-center table-emerald">
   <thead>
@@ -91,6 +97,7 @@
 
   </tbody>
 </table>
+{#{% endcache %}#}
 
 <!-- 🔽 ПАГИНАЦИЯ -->
 <div class="d-flex justify-content-center mt-4">

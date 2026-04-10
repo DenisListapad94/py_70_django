@@ -13,7 +13,7 @@
 
 
 
-<form action="{% url 'create_task' %}" method="POST">
+<form  action="{% url 'create_task' %}" method="POST">
   <div class="mb-3">
       {{ form|crispy}}
     {% csrf_token %}

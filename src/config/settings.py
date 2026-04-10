@@ -56,7 +56,12 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+
+    # "django.middleware.cache.UpdateCacheMiddleware",
     'django.middleware.common.CommonMiddleware',
+    # "django.middleware.cache.FetchFromCacheMiddleware",
+
+
     'django.middleware.csrf.CsrfViewMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -144,7 +149,7 @@ STATIC_ROOT = BASE_DIR.parent / "static"
 
 # media
 
-MEDIA_URL =  "media/"
+MEDIA_URL =  "/media/"
 MEDIA_ROOT = "media_files"
 
 # storages
@@ -174,4 +179,19 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
+# Cache
 
+CACHES ={
+    # "default": {
+    #     "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+    #     "LOCATION": "unique-snowflake",
+    # }
+    # "default": {
+    #     "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+    #     "LOCATION": BASE_DIR.parent / "cache",
+    # }
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "cache_table",
+    }
+}

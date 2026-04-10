@@ -13,7 +13,7 @@ class TaskQuerySet(models.QuerySet):
         return self.filter(assignee__isnull=False)
 
     def task_optimization(self):
-        return self.select_related("assignee").prefetch_related("tags", "comments").all().order_by("id")
+        return self.select_related("assignee").prefetch_related("tags", "comments").all().order_by("-created_at")
 
 
 class TaskManager(models.Manager):
