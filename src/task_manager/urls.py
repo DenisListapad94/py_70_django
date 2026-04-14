@@ -1,5 +1,5 @@
 
-from django.urls import path, re_path
+from django.urls import path, re_path,include
 from task_manager.views import TasksView,MyView,AboutTemplateView,TaskFormView,user_tasks,create_attachment
 from django.views.decorators.cache import cache_page
 urlpatterns = [
@@ -9,5 +9,5 @@ urlpatterns = [
     re_path("details/", MyView.as_view()),
     path("create",TaskFormView.as_view(),name="create_task"),
     path("create_attachment",create_attachment,name="create_attachment"),
-
+    path("api/",include("task_manager.v1.urls")),
 ]

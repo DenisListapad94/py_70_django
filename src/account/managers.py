@@ -1,6 +1,14 @@
 from django.contrib.auth.base_user import BaseUserManager
+from django.db import models
 
 from django.contrib.auth.hashers import make_password
+class UserQuerySet(models.QuerySet):
+    pass
+
+
+class TaskManager(models.Manager):
+    def get_queryset(self):
+        return UserQuerySet(self.model, using=self._db)
 
 
 class UserManager(BaseUserManager):
@@ -14,7 +22,7 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password)
 
     def all_superusers(self):
-        return self.queryset().filter(is_superuser=True)
+        return self.get_queryset().filter(is_superuser=True)
 
     def create_superuser(self, email, password):
         kwargs = {
