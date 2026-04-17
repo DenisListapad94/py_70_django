@@ -18,9 +18,13 @@ from django.views.decorators.cache import cache_page
 from django.core.cache import caches
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+
 
 # MTV
 # @cache_page(60)
+# @permission_required("task_manager.view_task")
 # @transaction.atomic
 # def tasks(request):
 #
@@ -36,8 +40,10 @@ from django.urls import reverse_lazy
 
 
 
-class TasksView(ListView):
+class TasksView(PermissionRequiredMixin,LoginRequiredMixin,ListView):
     template_name = "tasks.html"
+    login_url = "/account/login/"
+    permission_required = 'task_manager.view_task'
     model = Tasks
     paginate_by = 50
     paginator_class = Paginator
