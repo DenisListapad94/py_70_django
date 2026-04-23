@@ -1,3 +1,4 @@
+from django_filters import OrderingFilter
 from rest_framework import serializers
 
 from account.models import User
@@ -27,6 +28,28 @@ from task_manager.v1.serializers.comment import CommentSerializer
 #         instance.priority = validated_data.get("priority", instance.priority)
 #         instance.save()
 #         return instance
+
+import django_filters
+
+class TaskQueryFilterSerializer(django_filters.FilterSet):
+    name__icontains = django_filters.CharFilter(field_name='name',lookup_expr='icontains')
+    priority__gt = django_filters.NumberFilter(field_name='priority', lookup_expr='gt')
+    priority__lt = django_filters.NumberFilter(field_name='priority', lookup_expr='lt')
+    ordering = OrderingFilter(
+        fields=(
+            ('status','status'),
+            ('priority','priority'),
+        )
+    )
+
+    class Meta:
+        model = Tasks
+        fields = ['name', 'status','priority']
+
+
+
+
+
 
 class TaskSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
