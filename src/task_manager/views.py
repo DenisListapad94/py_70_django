@@ -20,7 +20,8 @@ from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_not_required
 
 # MTV
 # @cache_page(60)
@@ -39,11 +40,11 @@ from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMix
 #     return render(request,"tasks.html",context=context)
 
 
-
-class TasksView(PermissionRequiredMixin,LoginRequiredMixin,ListView):
+# @method_decorator(login_not_required, name="dispatch")
+class TasksView(ListView):
     template_name = "tasks.html"
-    login_url = "/account/login/"
-    permission_required = 'task_manager.view_task'
+    # login_url = "/account/login/"
+    # permission_required = 'task_manager.view_task'
     model = Tasks
     paginate_by = 50
     paginator_class = Paginator
@@ -75,16 +76,23 @@ class MyView(View):
         return HttpResponse("<h1>Index 2. </h1>")
 
 
+def user_test_validate():
+    import time
+    time.sleep(10)
+    return True
+
 
 # @transaction.atomic
 def user_tasks(request,pk):
-    user = User.objects.get(pk=pk)
+    # user = User.objects.get(pk=pk)
     # task = user.tasks.get(id=3)
     #
+    res = user_test_validate()
+    print(res)
     # task.priority = F("priority") + 1
     # if task.priority > 5:
     #     raise ValueError
-    return HttpResponse(f"<h1>User {user.email}</h1>")
+    return HttpResponse(f"<h1>User </h1>")
 
 
 

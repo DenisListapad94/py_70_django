@@ -6,9 +6,9 @@ class TaskManagerConfig(AppConfig):
     name = 'task_manager'
     verbose_name = "Менеджер задач"
 
-    def ready(self):
-        # Implicitly connect signal handlers decorated with @receiver.
-        from task_manager.signals import my_test_signal
+    # def ready(self):
+    #     # Implicitly connect signal handlers decorated with @receiver.
+    #     from task_manager.signals import my_test_signal
 
         # # Explicitly connect a signal handler.
         # post_save.connect(my_test_signal)

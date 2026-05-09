@@ -236,52 +236,52 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.response import Response
 
-@extend_schema(tags=['Task'])
-class TaskViewSet(
-    mixins.RetrieveModelMixin,
-    mixins.UpdateModelMixin,
-    mixins.DestroyModelMixin,
-    mixins.ListModelMixin,
-    mixins.CreateModelMixin,
-    viewsets.ViewSet
-):
-    """
-    A simple ViewSet for listing or retrieving users.
-    """
-
-    queryset = Tasks.objects.all()
-    serializer_class = TaskSerializer
-    # pagination_class = CustomPagination
-    # filterset_class = TaskQueryFilterSerializer
-    filter_queryset = None
-
-
-
-    # @extend_schema(
-    #     summary='Get all tasks',
-    #     description='Get all tasks',
-    #     request=TaskQueryFilterSerializer,
-    #     responses={200: TaskSerializer},
-    # )
-    def list(self, request, *args, **kwargs):
-
-        return super().list(request, *args, **kwargs)
-
-
-    @extend_schema(
-        summary='Create task',
-        description='Create task',
-        request=TaskSerializer,
-        responses={201: TaskSerializer},
-    )
-    def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
-
-    def retrieve(self, request, *args, **kwargs):
-        return super().retrieve(request, *args, **kwargs)
-
-    def update(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
-
-    def destroy(self, request, *args, **kwargs):
-        return super().destroy(request, *args, **kwargs)
+# @extend_schema(tags=['Task'])
+# class TaskViewSet(
+#     mixins.RetrieveModelMixin,
+#     mixins.UpdateModelMixin,
+#     mixins.DestroyModelMixin,
+#     mixins.ListModelMixin,
+#     mixins.CreateModelMixin,
+#     viewsets.ViewSet
+# ):
+#     """
+#     A simple ViewSet for listing or retrieving users.
+#     """
+#
+#     queryset = Tasks.objects.all()
+#     serializer_class = TaskSerializer
+#     # pagination_class = CustomPagination
+#     # filterset_class = TaskQueryFilterSerializer
+#     filter_queryset = None
+#
+#
+#
+#     # @extend_schema(
+#     #     summary='Get all tasks',
+#     #     description='Get all tasks',
+#     #     request=TaskQueryFilterSerializer,
+#     #     responses={200: TaskSerializer},
+#     # )
+#     def list(self, request, *args, **kwargs):
+#
+#         return super().list(request, *args, **kwargs)
+#
+#
+#     @extend_schema(
+#         summary='Create task',
+#         description='Create task',
+#         request=TaskSerializer,
+#         responses={201: TaskSerializer},
+#     )
+#     def create(self, request, *args, **kwargs):
+#         return super().create(request, *args, **kwargs)
+#
+#     def retrieve(self, request, *args, **kwargs):
+#         return super().retrieve(request, *args, **kwargs)
+#
+#     def update(self, request, *args, **kwargs):
+#         return super().update(request, *args, **kwargs)
+#
+#     def destroy(self, request, *args, **kwargs):
+#         return super().destroy(request, *args, **kwargs)
