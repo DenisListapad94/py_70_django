@@ -23,6 +23,9 @@ from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMix
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_not_required
 
+from task_manager.tasks import add
+
+
 # MTV
 # @cache_page(60)
 # @permission_required("task_manager.view_task")
@@ -76,9 +79,10 @@ class MyView(View):
         return HttpResponse("<h1>Index 2. </h1>")
 
 
-def user_test_validate():
-    import time
-    time.sleep(10)
+def user_test_validate(pk):
+
+    res = add.delay(pk, pk + 1)
+    print(res)
     return True
 
 
@@ -87,7 +91,7 @@ def user_tasks(request,pk):
     # user = User.objects.get(pk=pk)
     # task = user.tasks.get(id=3)
     #
-    res = user_test_validate()
+    res = user_test_validate(pk)
     print(res)
     # task.priority = F("priority") + 1
     # if task.priority > 5:
