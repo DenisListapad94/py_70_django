@@ -82,8 +82,8 @@ class MyView(View):
 def user_test_validate(pk):
 
     res = add.delay(pk, pk + 1)
-    print(res)
-    return True
+    # print(res)
+    return res
 
 
 # @transaction.atomic
@@ -92,11 +92,11 @@ def user_tasks(request,pk):
     # task = user.tasks.get(id=3)
     #
     res = user_test_validate(pk)
-    print(res)
+    # print(res)
     # task.priority = F("priority") + 1
     # if task.priority > 5:
     #     raise ValueError
-    return HttpResponse(f"<h1>User </h1>")
+    return HttpResponse(f"<h1>User {res}</h1>")
 
 
 

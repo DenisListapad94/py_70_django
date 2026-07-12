@@ -1,7 +1,28 @@
 services:
-  db:
+  web:
+    build:
+      context: .
+    container_name: backend
+#    command: >
+#      sh -c "python3 src/manage.py migrate && python3 src/manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      PG_NAME: ${PG_NAME}
+      PG_USER: ${PG_USER}
+      PG_PASS: ${PG_PASS}
+      PG_PORT: ${PG_CONTAINER_PORT}
+      PG_HOST: ${PG_HOST}
+
+    depends_on:
+      - postgresql_db
+      - redis_db
+
+  postgresql_db:
     image: postgres:15
-    container_name: postgres_db
+    container_name: postgres_task_tracker
     restart: unless-stopped
 
     env_file:
@@ -11,12 +32,70 @@ services:
       POSTGRES_DB: ${PG_NAME}
       POSTGRES_USER: ${PG_USER}
       POSTGRES_PASSWORD: ${PG_PASS}
-
     ports:
       - "${PG_PORT}:5432"
 
     volumes:
       - pg_data:/var/lib/postgresql/data
+
+  redis_db:
+    image: redis
+    container_name: redis_task_tracker
+    restart: unless-stopped
+
+    ports:
+      - "6379:6379"
+
+  celery_worker:
+    container_name: celery_worker
+    build:
+      context: .
+
+    env_file:
+      - .env
+    environment:
+      PG_NAME: ${PG_NAME}
+      PG_USER: ${PG_USER}
+      PG_PASS: ${PG_PASS}
+      PG_PORT: ${PG_CONTAINER_PORT}
+      PG_HOST: ${PG_HOST}
+    command: >
+      sh -c "celery -A config worker -l INFO"
+    depends_on:
+      - redis_db
+      - web
+
+#  celery_beat:
+#    container_name: celery_beat_worker
+#    build:
+#      context: .
+#    command: >
+#      sh -c "celery -A config beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+#
+#    env_file:
+#      - .env
+#    environment:
+#      PG_NAME: ${PG_NAME}
+#      PG_USER: ${PG_USER}
+#      PG_PASS: ${PG_PASS}
+#      PG_PORT: ${PG_CONTAINER_PORT}
+#      PG_HOST: ${PG_HOST}
+#    depends_on:
+#      - redis_db
+#      - web
+#      - postgresql_db
+
+  flower:
+    container_name: celery_flower
+    build:
+      context: .
+    command: >
+      sh -c "celery -A config flower --address=0.0.0.0 --port=5555"
+    ports:
+      - "5555:5555"
+    depends_on:
+      - redis_db
+      - celery_worker
 
 volumes:
   pg_data:
