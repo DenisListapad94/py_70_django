@@ -18,12 +18,12 @@ from config.env import env, BASE_DIR
 
 
 # False if not in os.environ because of casting above
-DEBUG = env('DEBUG')
+DEBUG = True #env('DEBUG')
 
 #
 # # Raises Django's ImproperlyConfigured
 # # exception if SECRET_KEY not in os.environ
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = "django-insecure-%(5_fo8yi)k%0&a^@52zj!q9sq&q0!!%=!!pg$j^--jgza-a2+"#env('SECRET_KEY')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
@@ -108,8 +108,8 @@ DATABASES = {
         "NAME": env("PG_NAME"),
         "USER": env("PG_USER"),
         "PASSWORD": env("PG_PASS"),
-        "HOST": env("PG_HOST"),
-        "PORT": env("PG_PORT"),
+        "HOST": "127.0.0.1",# env("PG_HOST"),
+        "PORT": "5432",#env("PG_PORT"),
         'TEST': {
             'NAME': "test_task_tracker_py70",
         }
@@ -245,9 +245,9 @@ SIMPLE_JWT = {
         minutes=int(env('REFRESH_TOKEN_LIFETIME_MINUTES'))
     ),
 
-    "ALGORITHM": env("JWT_ALGORITHM"),
-    "SIGNING_KEY": env("SECRET_KEY"),
-    "AUTH_HEADER_TYPES": ("JWT",),
+    "ALGORITHM": "HS256",#env("JWT_ALGORITHM"),
+    "SIGNING_KEY": SECRET_KEY,
+    "AUTH_HEADER_TYPES": "Bearer"#"("JWT",),
 }
 
 #  CELERY

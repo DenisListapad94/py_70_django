@@ -3,6 +3,7 @@ services:
     build:
       context: .
     container_name: backend
+    restart: always
 #    command: >
 #      sh -c "python3 src/manage.py migrate && python3 src/manage.py runserver 0.0.0.0:8000"
     ports:
@@ -65,25 +66,25 @@ services:
       - redis_db
       - web
 
-#  celery_beat:
-#    container_name: celery_beat_worker
-#    build:
-#      context: .
-#    command: >
-#      sh -c "celery -A config beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler"
-#
-#    env_file:
-#      - .env
-#    environment:
-#      PG_NAME: ${PG_NAME}
-#      PG_USER: ${PG_USER}
-#      PG_PASS: ${PG_PASS}
-#      PG_PORT: ${PG_CONTAINER_PORT}
-#      PG_HOST: ${PG_HOST}
-#    depends_on:
-#      - redis_db
-#      - web
-#      - postgresql_db
+  celery_beat:
+    container_name: celery_beat_worker
+    build:
+      context: .
+    command: >
+      sh -c "celery -A config beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+
+    env_file:
+      - .env
+    environment:
+      PG_NAME: ${PG_NAME}
+      PG_USER: ${PG_USER}
+      PG_PASS: ${PG_PASS}
+      PG_PORT: ${PG_CONTAINER_PORT}
+      PG_HOST: ${PG_HOST}
+    depends_on:
+      - redis_db
+      - web
+      - celery_worker
 
   flower:
     container_name: celery_flower

@@ -16,13 +16,13 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 # Load task modules from all registered Django apps.
 app.autodiscover_tasks()
 
-# app.conf.beat_schedule = {
-#     'add-every-60-seconds': {
-#         'task': 'task_manager.tasks.add',
-#         'schedule': 60.0,
-#         'args': (16, 16)
-#     },
-# }
+app.conf.beat_schedule = {
+    'add-every-300-seconds': {
+        'task': 'task_manager.tasks.add',
+        'schedule': 300.0,
+        'args': (16, 16)
+    },
+}
 
 #
 # @app.task(bind=True, ignore_result=True)

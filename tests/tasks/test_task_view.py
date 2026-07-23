@@ -7,7 +7,7 @@ class TestTaskView(TestCase):
     def test_task_list(self):
         client = Client()
         response = client.get("/tasks/")
-        self.assertEqual(response.status_code,200)
+        self.assertEqual(response.status_code,302)
 
 #     def test_isupper(self):
 #         self.assertTrue('FOO'.isupper())

@@ -14,3 +14,4 @@ class Command(BaseCommand):
             self.style.SUCCESS('Successfully created tasks')
         except Exception as e:
             self.style.ERROR(f'error is {e}')
+

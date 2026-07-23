@@ -2,15 +2,11 @@ from django.db import models
 from django.core.validators import MinValueValidator,MaxValueValidator
 
 from config.models import BaseModel
+from task_manager.constants import TaskStatus
 from task_manager.managers import TaskManager
 
 
-class TaskStatus(models.TextChoices):
-    CREATED = "created"
-    STARTED = "started"
-    COMPLETED = "completed"
-    CANCELED = "canceled"
-    FAILED = "failed"
+
 
 class Tasks(BaseModel):
     name = models.CharField(
