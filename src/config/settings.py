@@ -108,10 +108,10 @@ DATABASES = {
         "NAME": "tasktracker",#env("PG_NAME"),
         "USER": "denis",#env("PG_USER"),
         "PASSWORD": "1234",#env("PG_PASS"),
-        "HOST": "127.0.0.1",# env("PG_HOST"),
+        "HOST": "localhost",# env("PG_HOST"),
         "PORT": "5432",#env("PG_PORT"),
         'TEST': {
-            'NAME': "test_task_tracker_py70",
+            'NAME': "tasktracker",
         }
     },
 }
