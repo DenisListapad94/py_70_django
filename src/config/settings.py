@@ -106,8 +106,8 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "tasktracker",#env("PG_NAME"),
-        "USER": "denis",#env("PG_USER"),
-        "PASSWORD": "1234",#env("PG_PASS"),
+        "USER": "postgres",#env("PG_USER"),
+        "PASSWORD": "postgres",#env("PG_PASS"),
         "HOST": "localhost",# env("PG_HOST"),
         "PORT": "5432",#env("PG_PORT"),
         'TEST': {
