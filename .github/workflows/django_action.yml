@@ -20,9 +20,9 @@ jobs:
           image: postgres:latest
           env:
             POSTGRES_HOST_AUTH_METHOD: trust
-            DB_NAME: tasktracker
-            DB_USER: postgres
-            DB_PASSWORD: 1234
+            PG_NAME: tasktracker
+            PG_USER: postgres
+            PG_PASS: 1234
           ports:
             - 5432:5432
           options: >-
