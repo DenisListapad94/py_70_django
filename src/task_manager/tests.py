@@ -66,7 +66,7 @@ class TestTaskView(TestCase):
             path=path,
             data=body
         )
-        self.assertEquals(response.status_code,302)
+        self.assertEqual(response.status_code,302)
 
         tasks = Tasks.objects.all()
 
