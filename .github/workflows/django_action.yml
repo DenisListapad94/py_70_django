@@ -2,12 +2,10 @@ name: Django CI
 
 
 on: [workflow_dispatch]
-env:
-  # Setting an environment variable with the value of a configuration variable
-  env_var: ${{ vars.DEV }}
+
 jobs:
     test-lint:
-      name: Test and Lint  ${{ vars.SECRET_KEY }}
+      name: Test and Lint
       strategy:
         max-parallel: 3
         matrix:
@@ -22,7 +20,7 @@ jobs:
             POSTGRES_HOST_AUTH_METHOD: trust
             PG_NAME: tasktracker
             PG_USER: postgres
-            PG_PASS: 1234
+            PG_PASS: postgres
           ports:
             - 5432:5432
           options: >-
@@ -32,7 +30,7 @@ jobs:
             --health-retries 5
   
       env:
-        DATABASE_URL: postgres://postgres:1234@localhost:5432/tasktracker
+        DATABASE_URL: postgres://postgres:postgres@localhost:5432/tasktracker
         GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         POSTGRES_HOST_AUTH_METHOD: trust
   
