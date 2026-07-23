@@ -105,9 +105,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("PG_NAME"),
-        "USER": env("PG_USER"),
-        "PASSWORD": env("PG_PASS"),
+        "NAME": "tasktracker",#env("PG_NAME"),
+        "USER": "denis",#env("PG_USER"),
+        "PASSWORD": "1234",#env("PG_PASS"),
         "HOST": "127.0.0.1",# env("PG_HOST"),
         "PORT": "5432",#env("PG_PORT"),
         'TEST': {
@@ -239,10 +239,10 @@ SPECTACULAR_SETTINGS = {
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(
-        minutes=int(env("ACCESS_TOKEN_LIFETIME_MINUTES"))
+        minutes=60
     ),
     "REFRESH_TOKEN_LIFETIME": timedelta(
-        minutes=int(env('REFRESH_TOKEN_LIFETIME_MINUTES'))
+        minutes=1440
     ),
 
     "ALGORITHM": "HS256",#env("JWT_ALGORITHM"),
@@ -253,7 +253,7 @@ SIMPLE_JWT = {
 #  CELERY
 # CELERY_TIMEZONE = "Belarus/Minsk"
 
-REDIS_HOST=env("REDIS_HOST")
+REDIS_HOST="localhost"
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 1800
 CELERY_RESULT_BACKEND = 'django-db'
