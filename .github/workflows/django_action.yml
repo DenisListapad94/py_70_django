@@ -1,9 +1,13 @@
 name: Django CI
 
+
 on: [workflow_dispatch]
+env:
+  # Setting an environment variable with the value of a configuration variable
+  env_var: ${{ vars.DEV }}
 jobs:
     test-lint:
-      name: Test and Lint
+      name: Test and Lint  ${{ vars.SECRET_KEY }}
       strategy:
         max-parallel: 3
         matrix:
